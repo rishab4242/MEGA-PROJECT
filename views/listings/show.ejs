@@ -85,11 +85,13 @@
                                                 <%= review.comment %>
                                             </p>
 
-                                            <form class="mb-3"
+                                            <% if (currUser) { %>
+                                                <form class="mb-3"
                                                 action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE"
                                                 method="POST">
                                                 <button class="btn btn-sm btn-dark">Delete</button>
                                             </form>
+                                            <% } %>
                                         </div>
                                     </div>
                                     <% } %>
