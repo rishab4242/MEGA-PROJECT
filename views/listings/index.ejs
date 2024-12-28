@@ -22,7 +22,7 @@
       font-size: 0.8rem;
     }
 
-
+    
 
     .tax-info {
       display: none;
@@ -40,54 +40,54 @@
   </style>
 
   <div id="filters">
-    <div class="filter" data-category="Trending">
-      <div><i class="fa-solid fa-fire"></i></div>
-      <p>Trending</p>
-    </div>
-
+      <div class="filter">
+          <div><i class="fa-solid fa-fire"></i></div>
+        <p>Trending</p>
+      </div>
+    
 
     <div class="filter">
-      <div><i class="fa-solid fa-bed" data-category="Rooms"></i></div>
+      <div><i class="fa-solid fa-bed"></i></div>
       <p>Rooms</p>
     </div>
 
     <div class="filter">
-      <div><i class="fa-solid fa-mountain-city" data-category="Iconic Cities"></i></div>
+      <div><i class="fa-solid fa-mountain-city"></i></div>
       <p>Iconic Cities</p>
     </div>
 
     <div class="filter">
-      <div><i class="fa-solid fa-mountain" data-category="Mountain"></i></div>
+      <div><i class="fa-solid fa-mountain"></i></div>
       <p>Mountain</p>
     </div>
 
     <div class="filter">
-      <div><i class="fa-solid fa-campground" data-category="Camping"></i></div>
+      <div><i class="fa-solid fa-campground"></i></div>
       <p>Camping</p>
     </div>
 
     <div class="filter">
-      <div><i class="fa-solid fa-cow" data-category="Farms"></i></div>
+      <div><i class="fa-solid fa-cow"></i></div>
       <p>Farms</p>
     </div>
 
     <div class="filter">
-      <div><i class="fa-brands fa-fort-awesome" data-category="Castles"></i></div>
+      <div><i class="fa-brands fa-fort-awesome"></i></div>
       <p>Castles</p>
     </div>
 
     <div class="filter">
-      <div><i class="fa-regular fa-snowflake" data-category="Arctic"></i></div>
+      <div><i class="fa-regular fa-snowflake"></i></div>
       <p>Arctic</p>
     </div>
 
     <div class="filter">
-      <div><i class="fa-solid fa-ship" data-category="Boats"></i></div>
+      <div><i class="fa-solid fa-ship"></i></div>
       <p>Boats</p>
     </div>
 
     <div class="filter">
-      <div><i class="fa-solid fa-tower-observation" data-category="Towers"></i></div>
+      <div><i class="fa-solid fa-tower-observation"></i></div>
       <p>Towers</p>
     </div>
 
@@ -132,68 +132,4 @@
         }
       }
     });
-
-    // Filters वर क्लिक करून लिस्टिंग्स फिल्टर करा
-    const filters = document.querySelectorAll(".filter");
-
-    filters.forEach((filter) => {
-      filter.addEventListener("click", async () => {
-        const category = filter.querySelector("p").innerText; // Icon चं Category मिळवा
-
-        // Backend API ला कॉल करा
-        const response = await fetch(`/category/${category}`);
-        const listings = await response.json();
-
-        // लिस्टिंग्स UI मध्ये दाखवा
-        const listingsContainer = document.querySelector(".row");
-        listingsContainer.innerHTML = listings
-          .map(
-            (listing) =>
-              `<a href="/listings/${listing._id}" class="listing-link">
-                            <div class="card col listing-card">
-                                <img src="${listing.image.url}" class="card-img-top" alt="listing_image" style="height: 20rem;">
-                                <div class="card-img-overlay"></div>
-                                <div class="card-body">
-                                    <p class="card-text">
-                                        <b>${listing.title}</b><br>
-                                        &#8377; ${listing.price.toLocaleString("en-IN")} / night
-                                    </p>
-                                </div>
-                            </div>
-                        </a>`
-          )
-          .join("");
-      });
-    });
-
-
-    document.getElementById("search-btn").addEventListener("click", async () => {
-      const query = document.getElementById("search").value;
-
-      // Backend API वर सर्च Query पाठवा
-      const response = await fetch(`/search?q=${query}`);
-      const listings = await response.json();
-
-      // Search Results UI मध्ये दाखवा
-      const listingsContainer = document.querySelector(".row");
-      listingsContainer.innerHTML = listings
-        .map(
-          (listing) =>
-            `<a href="/listings/${listing._id}" class="listing-link">
-                        <div class="card col listing-card">
-                            <img src="${listing.image.url}" class="card-img-top" alt="listing_image" style="height: 20rem;">
-                            <div class="card-img-overlay"></div>
-                            <div class="card-body">
-                                <p class="card-text">
-                                    <b>${listing.title}</b><br>
-                                    &#8377; ${listing.price.toLocaleString("en-IN")} / night
-                                </p>
-                            </div>
-                        </div>
-                    </a>`
-        )
-        .join("");
-    });
-
-
   </script>

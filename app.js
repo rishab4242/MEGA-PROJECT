@@ -23,7 +23,7 @@ const userRouter = require("./routes/user.js");
 
 
 
-// const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
+
 const dbUrl = process.env.ATLASDB_URL;
 
 main()
@@ -48,7 +48,7 @@ app.use(express.static(path.join(__dirname, "/public")));
 const store = MongoStore.create({
     mongoUrl: dbUrl,
     crypto: {
-        secret: process.env.SECRET,
+        secret: process.env.SECRET
     },
     touchAfter: 24 * 3600,
 });
@@ -100,28 +100,6 @@ app.get("/demoUser", async (req, res) => {
     let registeredUser = await User.register(fakeUser, "helloworld");
     res.send(registeredUser);
 });
-
-// Search Route
-app.get('/search', async (req, res) => {
-    const query = req.query.q;  // Search Query ('q' म्हणजे URL मधील Query Param)
-  
-    if (!query) {
-      return res.status(400).json({ message: 'Search query is required' });  // Query नाही तर Error
-    }
-  
-    try {
-      // MongoDB Database मध्ये Search Query च्या आधारावर लिस्टिंग शोधा
-      const listings = await Listing.find({
-        title: { $regex: query, $options: 'i' },  // Case-insensitive Search
-      });
-  
-      res.json(listings);  // Search Results Frontend ला पाठवा
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ message: 'Error searching listings' });  // Error Handling
-    }
-  });
-  
 
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
