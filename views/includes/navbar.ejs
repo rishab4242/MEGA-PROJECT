@@ -1,0 +1,273 @@
+<style>
+  /* Navbar styles */
+  .navbar {
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fe424d;
+  }
+
+  .navbar-toggler {
+    background-color: white;
+    border: 1px solid #ccc;
+  }
+
+  .navbar-toggler-icon {
+    background-color: #fff;
+  }
+
+  .nav-link {
+    color: black;
+    padding: 0 8px;
+    font-size: 1rem;
+  }
+
+  .nav-link:hover {
+    color: #fe424d;
+  }
+
+  .search-input {
+    border-radius: 25px;
+    padding: 0.5rem 3rem 0.5rem 3rem;
+    font-size: 1rem;
+    margin-left: 2rem;
+    width: 80%;
+  }
+
+  .search-btn {
+    background-color: #fe424d;
+    color: #fff;
+    border-radius: 25px;
+    padding: 0 1rem;
+    width: 80%;
+    font-size: 1rem;
+  }
+
+  .search-btn:hover {
+    background-color: #fe424d;
+    color: #fff;
+  }
+
+  /* Show toggler button only on mobile screens */
+  @media (max-width: 767px) {
+    
+    /* Toggler button on mobile */
+    .navbar-toggler {
+      display: block;
+    }
+
+    .navbar-collapse {
+      display: none;
+    }
+
+    .navbar-nav {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .navbar-nav .nav-link {
+      margin: 10px 0;
+      padding: 10px;
+    }
+
+    /* Search form inside sidebar */
+    .search-input {
+      width: 100%;
+      
+      margin-left: 0;
+    }
+
+    .search-btn {
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    /* Adjust links in offcanvas sidebar */
+    .offcanvas .search-input {
+      width: 100%;
+    }
+
+    .offcanvas-body .search-btn {
+      width: 100%;
+    }
+  }
+
+  /* Desktop adjustments */
+  @media (min-width: 768px) {
+
+    /* Keep the navbar search and button aligned for desktop */
+    .navbar-nav.ms-auto .nav-link {
+      margin-right: 10px;
+      text-align: left;
+    }
+
+    /* Desktop styles for search input and button */
+    .search-input {
+      width: 300px;
+      /* Adjust width on desktop */
+    }
+
+    .search-btn {
+      width: auto;
+      /* Auto width for search button on desktop */
+    }
+  }
+
+  .offcanvas {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    width: 100px;
+    height: 400px;
+  }
+
+  .offcanvas-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .btn-close {
+    background-color: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: #333;
+  }
+
+  .offcanvas-body a {
+    display: block;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+
+  .offcanvas-body a:hover {
+    background-color: #e9ecef;
+  }
+
+  .offcanvas-body form {
+    margin-bottom: 1rem;
+  }
+
+  .offcanvas-body .search-input {
+    border-radius: 25px;
+    padding: 0.5rem 1.5rem;
+    font-size: 1rem;
+    width: 100%;
+    border: 1px solid #ccc;
+  }
+
+  .offcanvas-body .search-btn {
+    display: block;
+    width: 100%;
+    background: linear-gradient(45deg, #fe6b8b, #ff8e53);
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 25px;
+    padding: 0.75rem;
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, background-color 0.3s ease;
+  }
+
+  .offcanvas-body .search-btn:hover {
+    background: linear-gradient(45deg, #ff8e53, #fe6b8b);
+    transform: translateY(-2px);
+  }
+</style>
+
+<nav class="navbar navbar-expand-md sticky-top">
+  <div class="container-fluid">
+    <!-- Brand -->
+    <a class="navbar-brand" href="/listings">
+      <i class="fa-regular fa-compass"></i> Airbnb
+    </a>
+
+    <!-- Toggler button (visible on mobile only) -->
+    <button class="navbar-toggler" type="button" id="toggleSidebar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar links (visible on desktop only) -->
+    <div class="collapse navbar-collapse">
+      <form class="d-flex mx-auto" role="search">
+        <input class="form-control me-2 search-input" type="search" placeholder="Search destinations" />
+        <button class="btn search-btn" type="submit">Search</button>
+      </form>
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/listings/new">Airbnb your home</a>
+        </li>
+        <% if (!currUser) { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/signup"><b>Sign Up</b></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/login"><b>Log In</b></a>
+          </li>
+          <% } %>
+            <% if (currUser) { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/logout"><b>Log out</b></a>
+              </li>
+              <% } %>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Sidebar -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="sidebar">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title">Menu</h5>
+    <button type="button" class="btn-close" id="closeSidebar">&times;</button>
+  </div>
+  <div class="offcanvas-body">
+    <!-- Search Bar -->
+    <form role="search">
+      <input class="form-control search-input" type="search" placeholder="Search destinations" />
+      <button class="btn search-btn" type="submit">Search</button>
+    </form>
+    <!-- Links -->
+    <a class="nav-link" href="/listings/new">Airbnb your home</a>
+    <% if (!currUser) { %>
+      <a class="nav-link" href="/signup">Sign Up</a>
+      <a class="nav-link" href="/login">Log In</a>
+      <% } %>
+        <% if (currUser) { %>
+          <a class="nav-link" href="/logout"><b>Log out</b></a>
+          <% } %>
+  </div>
+</div>
+
+<script>
+  // Sidebar toggle functionality
+  const toggleSidebar = document.getElementById("toggleSidebar");
+  const closeSidebar = document.getElementById("closeSidebar");
+  const sidebar = document.getElementById("sidebar");
+
+  toggleSidebar.addEventListener("click", () => {
+    sidebar.classList.add("show");
+  });
+
+  closeSidebar.addEventListener("click", () => {
+    sidebar.classList.remove("show");
+  });
+
+  // Close sidebar on resizing to desktop
+  window.addEventListener("resize", () => {
+    if (window.innerWidth >= 768) {
+      sidebar.classList.remove("show");
+    }
+  });
+</script>
