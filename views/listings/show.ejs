@@ -74,7 +74,7 @@
                                 <div class="row">
                                     <h5>All Reviews</h5>
                                     <% for (let review of listing.reviews) { %>
-                                        <div class="card col-5 ms-3 mx-md-2  mb-3">
+                                        <div class="card col-5  mx-md-2  mb-3">
                                             <div class="card-body">
                                                 <h5 class="card-title">@<%= review.author.username %>
                                                 </h5>
@@ -105,11 +105,11 @@
             .row {
                 display: flex;
                 flex-wrap: wrap;
-                gap: 0.1rem;
+                justify-content: space-evenly;
             }
 
             .card {
-                width: 168px;
+                width: 169px;
             }
 
             /* Center content */
@@ -150,6 +150,18 @@
             .card-img-top {
                 width: 100%;
                 height: auto;
+            }
+        }
+
+        @media (max-width: 344px) {
+            .row {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-evenly;
+            }
+
+            .card {
+                width: 167.7px;
             }
         }
     </style>
